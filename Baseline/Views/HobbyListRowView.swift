@@ -14,6 +14,8 @@ struct HobbyListRowView: View {
                 .foregroundColor(hobby.isCompleted ? .green : .red)
             Text(hobby.name)
                 .padding()
+            Spacer()
+            Text(streak)
             Image(systemName: !streak.isEmpty ?  "flame" : "")
                 .foregroundColor(.red)
         }
