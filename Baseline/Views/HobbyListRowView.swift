@@ -16,8 +16,8 @@ struct HobbyListRowView: View {
                 .padding()
             Spacer()
             Text(streak)
-            Image(systemName: !streak.isEmpty ?  "flame" : "")
-                .foregroundColor(.red)
+            Image(systemName: "flame")
+                .foregroundColor(hobby.isCompleted ? .red : .black)
         }
     }
 }

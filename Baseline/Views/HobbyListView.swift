@@ -12,6 +12,9 @@ struct HobbyListView: View {
         return formatter1.string(from: today)
     }
     
+    //TODO: Add progress bar to display how close to completing best streak
+    //TODO: clear view if it is a new than the completed hobbies
+    
     var body: some View {
         ZStack {
             if hobbyListViewModel.hobbies.isEmpty {
