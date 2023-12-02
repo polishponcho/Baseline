@@ -30,7 +30,7 @@ struct HobbyListView: View {
                                 }
                         }
                     }
-                    .onDelete(perform: hobbyListViewModel.deleteHobby)
+//                    .onDelete(perform: hobbyListViewModel.deleteHobby)
                     .onMove(perform: hobbyListViewModel.moveHobby)
                     .listStyle(PlainListStyle())
                 }
