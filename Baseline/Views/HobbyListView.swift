@@ -8,7 +8,7 @@ struct HobbyListView: View {
     func createDate() -> String {
         let today = Date.now
         let formatter1 = DateFormatter()
-        formatter1.dateStyle = .full
+        formatter1.dateStyle = .medium
         return formatter1.string(from: today)
     }
     
