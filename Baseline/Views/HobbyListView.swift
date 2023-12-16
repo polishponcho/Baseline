@@ -8,7 +8,7 @@ struct HobbyListView: View {
     func createDate() -> String {
         let today = Date.now
         let formatter1 = DateFormatter()
-        formatter1.dateStyle = .medium
+        formatter1.dateStyle = .long
         return formatter1.string(from: today)
     }
     
@@ -21,25 +21,29 @@ struct HobbyListView: View {
                 NoHobbiesView()
                     .transition(AnyTransition.opacity.animation(.easeIn))
             } else {
-                List {
-                    ForEach(hobbyListViewModel.hobbies.indices, id: \.self) { index in
-                        NavigationLink(destination: HobbyDetailView(hobby: hobbyListViewModel.hobbies[index])) {
-                            HobbyListRowView(hobby: hobbyListViewModel.hobbies[index])
-                                .onTapGesture {
-                                    withAnimation(.linear) {
-                                        var hobby = hobbyListViewModel.hobbies[index]
-                                        hobbyListViewModel.updateHobby(hobby: &hobby)
+                VStack{
+                    Text(createDate())
+                        .font(.title)
+                    List {
+                        ForEach(hobbyListViewModel.hobbies.indices, id: \.self) { index in
+                            NavigationLink(destination: HobbyDetailView(hobby: hobbyListViewModel.hobbies[index])) {
+                                HobbyListRowView(hobby: hobbyListViewModel.hobbies[index])
+                                    .onTapGesture {
+                                        withAnimation(.linear) {
+                                            var hobby = hobbyListViewModel.hobbies[index]
+                                            hobbyListViewModel.updateHobby(hobby: &hobby)
+                                        }
                                     }
-                                }
+                            }
                         }
+                        //                    .onDelete(perform: hobbyListViewModel.deleteHobby)
+                        .onMove(perform: hobbyListViewModel.moveHobby)
+                        .listStyle(PlainListStyle())
                     }
-//                    .onDelete(perform: hobbyListViewModel.deleteHobby)
-                    .onMove(perform: hobbyListViewModel.moveHobby)
-                    .listStyle(PlainListStyle())
+                    
                 }
             }
         }
-        .navigationTitle(createDate())
         .navigationBarItems(
             leading: EditButton(),
             trailing: NavigationLink("Add", destination: AddHobbyView())
