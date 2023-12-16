@@ -8,31 +8,29 @@ struct AddHobbyView: View {
     
     @State var alertTitle: String = ""
     @State var showAlert: Bool = false
-
+    
     var todaysDate = Date()
     
     var body: some View {
-        ScrollView {
-            VStack {
-                TextField("Type here...", text: $textFieldText)
-                    .padding(.horizontal)
+        VStack {
+            TextField("Enter Hobby", text: $textFieldText)
+                .padding(.horizontal)
+                .frame(height: 55)
+                .background(Color(UIColor.secondarySystemBackground))
+                .cornerRadius(10)
+            
+            Button(action: saveButtonPressed, label: {
+                Text("Save Hobby".uppercased())
+                    .foregroundColor(.white)
+                    .font(.headline)
                     .frame(height: 55)
-                    .background(Color(UIColor.secondarySystemBackground))
+                    .frame(maxWidth: .infinity)
+                    .background(Color.accentColor)
                     .cornerRadius(10)
-                
-                Button(action: saveButtonPressed, label: {
-                    Text("Save".uppercased())
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .frame(height: 55)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .cornerRadius(10)
-                })
-            }
-            .padding(14)
+            })
         }
-        .navigationTitle("Add Hobby 🎸🚴🏿‍♂️📸")
+        .padding(14)
+        .navigationBarTitle("Add Hobby", displayMode: .inline)
         .alert(isPresented: $showAlert, content: getAlert)
     }
     
@@ -44,8 +42,8 @@ struct AddHobbyView: View {
     }
     
     func textIsAppropriate() -> Bool {
-        if textFieldText.count < 3 {
-            alertTitle = "Your new todo item must be at least three characters"
+        if textFieldText.count < 1 {
+            alertTitle = "Your hobby name must be at least three characters"
             showAlert.toggle()
             return false
         }

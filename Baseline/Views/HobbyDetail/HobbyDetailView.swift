@@ -20,7 +20,7 @@ struct HobbyDetailView : View {
                     .bold()
                 CalendarView(completedDates: hobby.completedDates)
                 HobbyStatsView(numberOfCompletedDays: numberOfCompletedDays, streak: streak)
-            }
+            } 
         }
     }
 }

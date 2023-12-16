@@ -16,7 +16,7 @@ struct HobbyModel: Identifiable, Codable {
         self.completedDates = completedDates
     }
     
-    //TODO: Needs to remove date if date has already been completed
+    //TODO: Why are there duplicates in completedDates array?
     mutating func updateCompletion() -> HobbyModel {
         let hobbyCompletion = !isCompleted
         let dates = getDate(hobbyCompletion: hobbyCompletion)
