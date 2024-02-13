@@ -64,5 +64,14 @@ struct HobbyModel: Identifiable, Codable {
         
         return streak
     }
+    
+    func calculateLongestStreak() -> Int {
+        var streaks: [Int] = []
+        for date in completedDates.sorted() {
+            print("date: ", date)
+        }
+        
+        return 0
+    }
 
 }

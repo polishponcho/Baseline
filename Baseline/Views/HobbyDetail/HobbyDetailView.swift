@@ -10,6 +10,12 @@ struct HobbyDetailView : View {
         let currentStreak = hobby.calculateStreak()
         return currentStreak
     }
+    
+    var longestStreak: Int {
+        print("calculating longest streak...")
+        let longestStreak = hobby.calculateLongestStreak()
+        return longestStreak
+    }
     //calculate percentage of days completed since createDate
     
     var body: some View {
@@ -19,8 +25,8 @@ struct HobbyDetailView : View {
                     .font(.largeTitle)
                     .bold()
                 CalendarView(completedDates: hobby.completedDates)
-                HobbyStatsView(numberOfCompletedDays: numberOfCompletedDays, streak: streak)
-            } 
+                HobbyStatsView(numberOfCompletedDays: numberOfCompletedDays, streak: streak, longestStreak: longestStreak)
+            }
         }
     }
 }
@@ -29,6 +35,7 @@ struct HobbyStatsView : View {
     
     var numberOfCompletedDays: Int
     var streak: Int
+    var longestStreak: Int
     
     var body: some View {
 
@@ -41,6 +48,9 @@ struct HobbyStatsView : View {
                         .foregroundColor(.red)
                     Text("\(streak)")
                         .padding()
+                }
+                HStack {
+                    Text("Longest Streak: \(longestStreak)")
                 }
             }
     }
