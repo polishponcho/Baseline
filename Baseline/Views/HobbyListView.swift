@@ -5,6 +5,11 @@ struct HobbyListView: View {
     
     @EnvironmentObject var hobbyListViewModel: HobbyListViewModel
     
+    //computed var that orders list of hobbies by current streak
+    var orderedHobbyList: [HobbyModel] {
+        return hobbyListViewModel.hobbies.sorted(by: { $0.calculateStreak() > $1.calculateStreak()})
+    }
+    
     func createDate() -> String {
         let today = Date.now
         let formatter1 = DateFormatter()
@@ -14,6 +19,7 @@ struct HobbyListView: View {
     
     //TODO: Add progress bar to display how close to completing best streak
     //TODO: clear view if it is a new than the completed hobbies
+    
     
     var body: some View {
         ZStack {
@@ -25,19 +31,19 @@ struct HobbyListView: View {
                     Text(createDate())
                         .font(.title)
                     List {
-                        ForEach(hobbyListViewModel.hobbies.indices, id: \.self) { index in
-                            NavigationLink(destination: HobbyDetailView(hobby: hobbyListViewModel.hobbies[index])) {
-                                HobbyListRowView(hobby: hobbyListViewModel.hobbies[index])
+                        ForEach(orderedHobbyList.indices, id: \.self) { index in
+                            NavigationLink(destination: HobbyDetailView(hobby: orderedHobbyList[index])) {
+                                HobbyListRowView(hobby: orderedHobbyList[index])
                                     .onTapGesture {
                                         withAnimation(.linear) {
-                                            var hobby = hobbyListViewModel.hobbies[index]
+                                            var hobby = orderedHobbyList[index]
                                             hobbyListViewModel.updateHobby(hobby: &hobby)
                                         }
                                     }
                             }
                         }
                         //                    .onDelete(perform: hobbyListViewModel.deleteHobby)
-                        .onMove(perform: hobbyListViewModel.moveHobby)
+//                        .onMove(perform: hobbyListViewModel.moveHobby)
                         .listStyle(PlainListStyle())
                     }
                     
@@ -45,7 +51,7 @@ struct HobbyListView: View {
             }
         }
         .navigationBarItems(
-            leading: EditButton(),
+//            leading: EditButton(),
             trailing: NavigationLink("Add", destination: AddHobbyView())
         )
     }
